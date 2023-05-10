@@ -7,6 +7,15 @@
 
 using namespace std;
 
+data_list::myIterator& data_list::myIterator::operator++(){
+    index++;
+    return *this;
+}
+
+bool data_list::myIterator::operator!=(const myIterator& other) const{
+    return index != other.index;
+}
+
 data_list::data_list() {
 }
 
@@ -203,4 +212,12 @@ data_list data_list::table_count() {
     data_list result;
     result._values.push_back(static_cast<double>(_values.size()));
     return result;
+}
+
+data_list::myIterator data_list::myIterator::begin(){
+    return myIterator(_values, 0);
+}
+
+data_list::myIterator data_list::myIterator::end() {
+    return myIterator(_values, _values.size());
 }
