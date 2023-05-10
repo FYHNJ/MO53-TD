@@ -40,15 +40,28 @@ public:
     double get_value(size_t position)const;
 
     void sort_list(bool ascending);
+
+    double& operator[](size_t index) {}
 };
 
 class data_list {
-    values_list _values;
+    static values_list _values;
 public:
     data_list();
     data_list(const data_list &other);
     ~data_list() {_values.clear();}
-
+    class myIterator{
+         private:
+              values_list data;
+              int index;
+         public :
+              myIterator(values_list data, int index) : data(data), index(index) {};
+        
+             myIterator& operator++();
+             bool operator!=(const myIterator& other) const;
+             myIterator begin();
+             myIterator end();
+    };
     // Input methods
     void from_text(const std::string &source);
     void from_binary(const std::string &source);
@@ -64,6 +77,9 @@ public:
     data_list average(); // returns a data_table with only one value
     data_list table_sum(); // returns a data_table with only one value
     data_list table_count(); // returns a data_table with only one value
+
+    
+
 };
 
 #endif // DATA_LIST_H
